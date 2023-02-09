@@ -15,4 +15,8 @@ class Author extends Model implements AuthenticateContract
     public $timestamps = false;
 
     protected $fillable = ['name', 'email', 'password', 'phone_no'];
+
+    public function authorBooks() {
+        return $this->hasMany(Book::class);
+    }
 }
