@@ -52,19 +52,30 @@ class AuthorController extends Controller
         return response()->json([
             "status" => true,
             "message" => "User Logged In",
-            "access_token" => $token,
+            "access_token" => $token->accessToken,
             "user" => auth()->user()
         ], 200);
 
     }
 
-    public function profie()
+    public function profile()
     {
-        
+        $user = auth()->user();
+        return response()->json([
+            "status" => true,
+            "message" => "Profile Data",
+            "user" => $user
+
+        ], 200);
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
-        
+        $token = $request->user()->token();
+        $token->revoke();
+        return response()->json([
+            "status" => true,
+            "message" => "User Logout Successfully"
+        ], 200);
     }
 }
